@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "195693353737",
+    "firebase_url": "https://teak-sunup-258709.firebaseio.com",
+    "project_id": "teak-sunup-258709",
+    "storage_bucket": "teak-sunup-258709.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195693353737:android:4111072011a969594b91d8",
+        "android_client_info": {
+          "package_name": "com.example.cabbookingapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195693353737-c7srbd30vaqnc7qfanev1erv9gsomne9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cabbookingapplication",
+            "certificate_hash": "2072faab61b6c8ac2c20be8ae03db8f1e6e1bc6c"
+          }
+        },
+        {
+          "client_id": "195693353737-qeblnqf3igcm6e92gh8hktbrve0fdd7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cabbookingapplication",
+            "certificate_hash": "f6a6f0e893934ae56141bf2246ffd520f5d6a7d9"
+          }
+        },
+        {
+          "client_id": "195693353737-4m5qst4vvgisot49l7kcrvm8k8t7tqbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSiM3w4BDyIO7fGew0KZPK4wuf54sHKyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195693353737-4m5qst4vvgisot49l7kcrvm8k8t7tqbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195693353737:android:30b9fc8f220671f54b91d8",
+        "android_client_info": {
+          "package_name": "com.jb.dev.cabapp_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195693353737-k2mf49e3ul10j8untg5jlpjc2u287pbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jb.dev.cabapp_admin",
+            "certificate_hash": "7204cfd11a8819b629032ad354f8827e62930f70"
+          }
+        },
+        {
+          "client_id": "195693353737-4m5qst4vvgisot49l7kcrvm8k8t7tqbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSiM3w4BDyIO7fGew0KZPK4wuf54sHKyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195693353737-4m5qst4vvgisot49l7kcrvm8k8t7tqbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

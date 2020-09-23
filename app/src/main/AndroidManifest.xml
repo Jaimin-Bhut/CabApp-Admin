@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jb.dev.cabapp_admin">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activites.LoginActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
+            android:windowSoftInputMode="stateHidden|adjustPan|adjustResize" />
+        <activity
+            android:name=".activites.SplashActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activites.MainActivity" />
+        <activity
+            android:name=".activites.UpdateCabActivity"
+            android:label="@string/update_cab"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+        <activity
+            android:name=".activites.UpdateDriverActivity"
+            android:label="@string/title_update_driver"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+        <activity
+            android:name=".activites.AddCabActivity"
+            android:label="@string/title_add_cab"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+        <activity
+            android:name=".activites.AddDriverActivity"
+            android:label="@string/driver_registration"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+    </application>
+
+</manifest>

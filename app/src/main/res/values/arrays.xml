@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Area">
+        <item>Piplod</item>
+        <item>Airport</item>
+        <item>Mota Varachha</item>
+        <item>Athwa</item>
+        <item>Varachha</item>
+    </string-array>
+</resources>

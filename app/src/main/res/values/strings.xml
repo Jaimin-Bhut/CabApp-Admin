@@ -1,0 +1,192 @@
+<resources>
+    <string name="app_name">Cab App - Admin</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="abc_gmail_com">abc@gmail.com</string>
+    <string name="driver">Driver</string>
+    <string name="cab">Cab</string>
+    <string name="hint_username">User Name</string>
+    <string name="hint_password">Password</string>
+    <string name="reset">Reset</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="ok">OK</string>
+    <string name="create_new_account">Create a New Account</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_lastname">Last Name</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_email">Email</string>
+    <string name="cancel">Cancel</string>
+    <string name="user_registration">Registration</string>
+    <string name="already_register_login">Already Register?Login</string>
+    <string name="txt_enter_first_name">Enter First Name</string>
+    <string name="txt_enter_last_name">Enter Last Name</string>
+    <string name="txt_enter_address">Enter Address</string>
+    <string name="txt_enter_phone_number">Enter Phone Number</string>
+    <string name="txt_enter_email">Enter Email</string>
+    <string name="txt_enter_password">Enter Password</string>
+    <string name="txt_enter_confirm_password">Enter Confirm Password</string>
+    <string name="txt_success_register">Successfully Registered</string>
+    <string name="txt_something_want_wrong">Something Want Wrong</string>
+    <string name="txt_email_already_exist">Email Already Exist</string>
+    <string name="txt_enter_valid_email">Enter Valid Email</string>
+    <string name="txt_enter_valid_password">Enter Valid Passoword</string>
+    <string name="txt_invalid_details">Invalid Details</string>
+    <string name="txt_success_update">Successfully Updated</string>
+    <string name="txt_invalid_password">Invalid Password</string>
+    <string name="title_activity_user_dashboard">UserDashboard</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="your_trips">Your Trips</string>
+    <string name="title_profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="admin">Admin</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="driver_login">Driver Login</string>
+    <string name="user">User</string>
+    <string name="welcome_admin">Welcome Admin</string>
+    <string name="enter_valid_details">Enter Valid Details</string>
+    <string name="title_activity_admin_dashboard">AdminDashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hint_city">City</string>
+    <string name="hint_cab_name">Cab Name</string>
+    <string name="hint_cab_number">Cab Number</string>
+    <string name="driver_registration">Driver Registration</string>
+    <string name="welcome_driver">Welcome Driver</string>
+    <string name="cab_deleted">Cab Deleted Successfully</string>
+    <string name="driver_deleted">Driver Deleted Successfully</string>
+    <string name="cab_details">Cab Details</string>
+    <string name="hint_cab_city">Cab City</string>
+    <string name="txt_cab_already_exist">Cab Already Exist</string>
+    <string name="txt_driver_already_exist">Driver Already Exist</string>
+    <string name="txt_enter_cab_name">Enter Cab Name</string>
+    <string name="txt_enter_cab_number">Enter Cab Number</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="update_cab">Update Cab</string>
+    <string name="update_driver">Update Driver</string>
+
+    <string-array name="City">
+        <item>L.H Road, Surat</item>
+        <item>Airport, Surat</item>
+        <item>Railway Station, Surat</item>
+        <item>Bus Station, Surat</item>
+        <item>Dumas Road, Surat</item>
+    </string-array>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="select_location">Select Location</string>
+    <string name="search">Search</string>
+    <string name="toast_enter_location">Enter Location</string>
+    <string name="Drop">drop</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="drop">Drop</string>
+    <string name="text_search">Search…</string>
+    <string name="distance">Distance</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="price">Price</string>
+    <string name="enter_details">Enter Details</string>
+    <string name="title_request_cab">Request Cab</string>
+    <string name="title_add_cab">Add Cab</string>
+    <string name="title_add_driver">Add Driver</string>
+    <string name="title_update_driver">Update Driver</string>
+    <string name="you_are_not_a_member_register">You are not a member? <b><font fgcolor="#FFD000">Register.</font></b></string>
+    <string name="already_member">Already Register?<b><font fgcolor="#FFD000">Login.</font></b></string>
+    <string name="assign_cab">Assign Cab</string>
+    <string name="hint_cab_driver">Cab Driver</string>
+    <string name="title_activity_t">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_test_login">Sign in</string>
+    <string name="hint_cab_per_capacity">Person Capacity</string>
+    <string name="hint_cab_laugage_capacity">Laugage Capacity</string>
+    <string name="hint_cab_status">Cab Status</string>
+    <string name="loading">Loading…</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="book_cab">Book Cab</string>
+    <string name="rate_your_journey">Rate Your Journey</string>
+    <string name="submit">Submit</string>
+    <string name="hint_user_phone">Phone Number</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBSiM3w4BDyIO7fGew0KZPK4wuf54sHKyw</string>
+    <string name="menu_your_trips">Your Trips</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_edit_profile">Edit Profile</string>
+    <string name="something_want_wrong">Something Want Wrong</string>
+    <string name="credit_card_number">Credit Card number</string>
+    <string name="valid_until_mm_yy">Valid until (MM/YY)</string>
+    <string name="_3_digit_cvv">3-digit CVV</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="add_card">Add Card</string>
+    <string name="condition_and_privacy_policy"><![CDATA[By tapping the button, you agree to Our Term & Condition and Privacy Policy.]]></string>
+    <string name="add_card_success">Card Added Successfully</string>
+    <string name="your_card">Your Cards</string>
+
+
+    <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
+        weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
+        InstanceID token to logcat.</string>
+    <string name="subscribe_to_weather">Subscribe To Weather</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to weather topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <!-- [START fcm_default_icon_string] -->
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="booking">Booking</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="fare">Fare</string>
+    <string name="user_phone">User Phone</string>
+    <string name="driver_phone">Driver Phone</string>
+    <string name="cab_area">Cab Area</string>
+    <string name="Time">Time</string>
+    <string name="your_name">Your Name</string>
+    <string name="expire">EXPIRE</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="you_already_give_feedback">You Already Give Feedback</string>
+    <string name="otp">OTP</string>
+    <string name="your_otp">YOUR OTP</string>
+    <string name="please_turn_on_location">Please Turn On Location</string>
+    <string name="you_have_not_enough_balance">You Have Not Enough Balance</string>
+    <string name="available">Available</string>
+    <string name="this_driver_is_currently_booked">This Driver is Currently Booked</string>
+    <string name="this_cab_is_currently_booked">This Cab is Currently Booked</string>
+    <string name="txt_success_register_please_check_your_email_for_verify">Registered Successfully. Please check your email for verification</string>
+    <string name="please_verify_your_email">Please Verify Your Email</string>
+    <string name="booked">Booked</string>
+</resources>
