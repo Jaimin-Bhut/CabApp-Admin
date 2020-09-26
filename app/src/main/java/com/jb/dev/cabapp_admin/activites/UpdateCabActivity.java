@@ -37,7 +37,7 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_update_cab);
 
         Intent intent = getIntent();
-        mId = intent.getStringExtra("id");
+        mId = intent.getStringExtra(Constants.CAB_ID);
         mPath = intent.getStringExtra("path");
         init();
         initListener();
@@ -90,11 +90,11 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
                 editTextLaugageCapacity.setError(getString(R.string.enter_valid_details));
                 editTextLaugageCapacity.setFocusable(true);
             } else {
-                DocumentReference documentReference = db.collection("Cab_Data").document(mId);
-                documentReference.update("CabName", mCabName);
-                documentReference.update("CabNumber", mCabNumber);
-                documentReference.update("CabPerCapacity", mPerCapacity);
-                documentReference.update("CabLaugageCapacity", mLaugageCapacity)
+                DocumentReference documentReference = db.collection(Constants.CAB_COLLECTION_REFERENCE_KEY).document(mId);
+                documentReference.update(Constants.CAB_NAME_KEY, mCabName);
+                documentReference.update(Constants.CAB_NUMBER_KEY, mCabNumber);
+                documentReference.update(Constants.CAB_PERSON_CAPACITY_KEY, mPerCapacity);
+                documentReference.update(Constants.CAB_LAUGAGE_CAPACITY_KEY, mLaugageCapacity)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -120,13 +120,13 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void isDefaultData() {
-        sharedPreferences = getSharedPreferences("is_set", MODE_PRIVATE);
-        String cabName = sharedPreferences.getString("cabname", "");
-        String cabNumber = sharedPreferences.getString("cabnumber", "");
-        String cabPerCapacity = sharedPreferences.getString("cabpercapacity", "");
-        String cabLauCapacity = sharedPreferences.getString("cablagcapacity", "");
-        String cabDriver = sharedPreferences.getString("cabdriver", "");
-        String cabStatus = sharedPreferences.getString("cabstatus", "");
+        sharedPreferences = getSharedPreferences(Constants.CAB_DETAILS, MODE_PRIVATE);
+        String cabName = sharedPreferences.getString(Constants.CAB_NAME_KEY, "");
+        String cabNumber = sharedPreferences.getString(Constants.CAB_NUMBER_KEY, "");
+        String cabPerCapacity = sharedPreferences.getString(Constants.CAB_PERSON_CAPACITY_KEY, "");
+        String cabLauCapacity = sharedPreferences.getString(Constants.CAB_LAUGAGE_CAPACITY_KEY, "");
+        String cabDriver = sharedPreferences.getString(Constants.CAB_DRIVER_KEY, "");
+        String cabStatus = sharedPreferences.getString(Constants.CAB_STATUS_KEY, "");
         editTextCabName.setText(cabName);
         editTextCabNumber.setText(cabNumber);
         editTextPerCapacity.setText(cabPerCapacity);

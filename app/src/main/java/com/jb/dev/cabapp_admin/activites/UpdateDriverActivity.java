@@ -40,7 +40,7 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_update_driver);
 
         Intent intent = getIntent();
-        mid = intent.getStringExtra("id");
+        mid = intent.getStringExtra(Constants.DRIVER_ID);
         mPath = intent.getStringExtra("path");
         init();
         initListener();
@@ -74,11 +74,11 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void isDefaultData() {
-        sharedPreferences = getSharedPreferences("is_set", MODE_PRIVATE);
-        String driverFirstName = sharedPreferences.getString("firstName", "");
-        String driverPhoneNumber = sharedPreferences.getString("phonenumber", "");
-        String driverEmail = sharedPreferences.getString("email", "");
-        String driverAddress = sharedPreferences.getString("address", "");
+        sharedPreferences = getSharedPreferences(Constants.DRIVER_DETAILS, MODE_PRIVATE);
+        String driverFirstName = sharedPreferences.getString(Constants.DRIVER_NAME_KEY, "");
+        String driverPhoneNumber = sharedPreferences.getString(Constants.DRIVER_PHONE_NUMBER_KEY, "");
+        String driverEmail = sharedPreferences.getString(Constants.DRIVER_EMAIL_KEY, "");
+        String driverAddress = sharedPreferences.getString(Constants.DRIVER_ADDRESS_KEY, "");
         editTextDriverFirstName.setText(driverFirstName);
         editTextDriverAddress.setText(driverAddress);
         editTextDriverEmail.setText(driverEmail);
@@ -120,10 +120,10 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
                 editTextDriverEmail.setError(getString(R.string.enter_valid_details));
                 editTextDriverEmail.setFocusable(true);
             } else {
-                DocumentReference documentReference = db.collection("Driver_Data").document(mid);
-                documentReference.update("Name", mFirstName);
-                documentReference.update("Address", mAddress);
-                documentReference.update("Phone", mPhoneNumber)
+                DocumentReference documentReference = db.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY).document(mid);
+                documentReference.update(Constants.DRIVER_NAME_KEY, mFirstName);
+                documentReference.update(Constants.DRIVER_ADDRESS_KEY, mAddress);
+                documentReference.update(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

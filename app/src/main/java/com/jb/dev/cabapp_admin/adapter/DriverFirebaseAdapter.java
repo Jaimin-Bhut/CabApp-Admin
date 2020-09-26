@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jb.dev.cabapp_admin.R;
-import com.jb.dev.cabapp_admin.helper.Constants;
-import com.jb.dev.cabapp_admin.model.DriverModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.jb.dev.cabapp_admin.R;
+import com.jb.dev.cabapp_admin.helper.Constants;
+import com.jb.dev.cabapp_admin.model.DriverModel;
 
 public class DriverFirebaseAdapter extends FirestoreRecyclerAdapter<DriverModel, DriverFirebaseAdapter.DriverHolder> {
     SharedPreferences sp;
@@ -82,13 +82,13 @@ public class DriverFirebaseAdapter extends FirestoreRecyclerAdapter<DriverModel,
                     phonenumber = textViewDriverPhone.getText().toString();
                     email = textViewDriverEmail.getText().toString();
                     address = textViewDriverAddress.getText().toString();
-                    sp = v.getContext().getSharedPreferences("is_set", Context.MODE_PRIVATE);
+                    sp = v.getContext().getSharedPreferences(Constants.DRIVER_DETAILS, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("firstName", fname);
-                    editor.putString("phonenumber", phonenumber);
-                    editor.putString("email", email);
-                    editor.putString("id", String.valueOf(postion));
-                    editor.putString("address", address);
+                    editor.putString(Constants.DRIVER_NAME_KEY, fname);
+                    editor.putString(Constants.DRIVER_PHONE_NUMBER_KEY, phonenumber);
+                    editor.putString(Constants.DRIVER_EMAIL_KEY, email);
+                    editor.putString(Constants.DRIVER_ID, String.valueOf(postion));
+                    editor.putString(Constants.DRIVER_ADDRESS_KEY, address);
                     editor.apply();
 
                 }

@@ -1,12 +1,14 @@
 package com.jb.dev.cabapp_admin.activites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +41,7 @@ public class AddDriverActivity extends AppCompatActivity implements View.OnClick
     FirebaseFirestore mFirebaseFirestore;
     CollectionReference mDriverRef;
     View parent_view;
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class AddDriverActivity extends AppCompatActivity implements View.OnClick
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         buttonCancle = findViewById(R.id.driver_btn_Cencle);
         buttonOk = findViewById(R.id.driver_btn_Ok);
+        progressBar = findViewById(R.id.progress_circular);
         mDriverRef = mFirebaseFirestore.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY);
         parent_view = findViewById(android.R.id.content);
         isClear();
@@ -138,6 +141,7 @@ public class AddDriverActivity extends AppCompatActivity implements View.OnClick
             editTextPassword.setError(getString(R.string.txt_enter_password));
             editTextPassword.setFocusable(true);
         } else {
+            progressBar.setVisibility(View.VISIBLE);
             Query query = mDriverRef.whereEqualTo(Constants.DRIVER_EMAIL_KEY, mEmail);
             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -155,7 +159,9 @@ public class AddDriverActivity extends AppCompatActivity implements View.OnClick
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        progressBar.setVisibility(View.GONE);
                                         Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
+                                        Intent intent = getIntent();
                                         setResult(Constants.DRIVER_REFRESH_RESULT_CODE);
                                         finish();
 //                                        navigateUpTo(new Intent(AddDriverActivity.this, CabFragment.class));

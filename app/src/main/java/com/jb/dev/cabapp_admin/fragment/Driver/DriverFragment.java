@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +55,8 @@ public class DriverFragment extends Fragment {
     private String TAG = getTag();
     int count = 0;
     String cabStatus, cabDriver;
-
+    TextView textViewNoData;
+    ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -62,6 +65,8 @@ public class DriverFragment extends Fragment {
         driverViewModel = ViewModelProviders.of(this).get(DriverViewModel.class);
         View root = inflater.inflate(R.layout.fragment_driver, container, false);
         recyclerViewDriver = root.findViewById(R.id.recycler_view_driver);
+        textViewNoData = root.findViewById(R.id.txt_no_data);
+        progressBar = root.findViewById(R.id.progress_circular);
         setRecyclerViewDriver();
 
         FloatingActionButton floatingActionButton = root.findViewById(R.id.driver_floating_button_add);
@@ -84,20 +89,52 @@ public class DriverFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setRecyclerViewDriver() {
+        progressBar.setVisibility(View.VISIBLE);
+        final Query query = mDriverRef;
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.getResult().isEmpty()) {
+                    textViewNoData.setVisibility(View.VISIBLE);
+                } else {
+                    textViewNoData.setVisibility(View.INVISIBLE);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+        });
 
-        Query query = mDriverRef;
         FirestoreRecyclerOptions<DriverModel> options = new FirestoreRecyclerOptions.Builder<DriverModel>()
                 .setQuery(query, DriverModel.class)
                 .build();
-
         mDriverFirebaseAdapter = new DriverFirebaseAdapter(options);
-        recyclerViewDriver.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerViewDriver.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewDriver.setItemAnimator(new DefaultItemAnimator());
         recyclerViewDriver.setAdapter(mDriverFirebaseAdapter);
         mDriverFirebaseAdapter.notifyDataSetChanged();
+        mDriverFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeChanged(int positionStart, int itemCount) {
+
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                Log.e("onItemRangeInserted::", positionStart + "");
+                if (positionStart == 0) {
+                    textViewNoData.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                if (positionStart == 0) {
+                    textViewNoData.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.RIGHT) {
+                ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -107,9 +144,8 @@ public class DriverFragment extends Fragment {
             public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //alert for confirm to delete
 //                viewHolder.getAdapterPosition();
-                if (direction == ItemTouchHelper.RIGHT) {
+                if (direction == ItemTouchHelper.LEFT) {
                     cabDriver = mDriverFirebaseAdapter.getId(viewHolder.getAdapterPosition());
-                    Log.e("ID", cabDriver);
                     builder.setMessage("Are you sure to delete?");//set message
                     builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() { //when click on DELETE
                         @Override
@@ -124,8 +160,8 @@ public class DriverFragment extends Fragment {
                                             String id = snapshot.getId();
                                             cabStatus = snapshot.get(Constants.CAB_STATUS_KEY).toString();
                                             count++;
-                                            if (cabStatus.equals("Booked")) {
-                                                Snackbar.make(getView(), R.string.booked, BaseTransientBottomBar.LENGTH_SHORT).show();
+                                            if (cabStatus.equals(Constants.BOOKED)) {
+                                                Snackbar.make(getView(), R.string.this_driver_is_currently_booked, BaseTransientBottomBar.LENGTH_SHORT).show();
                                                 dialog.dismiss();
                                                 return;
                                             } else {
@@ -137,8 +173,10 @@ public class DriverFragment extends Fragment {
                                                 mCabRef.document(String.valueOf(list.get(i))).delete();
                                             }
                                             mDriverFirebaseAdapter.deleteItem(viewHolder.getAdapterPosition());
+                                            Snackbar.make(getView(), getString(R.string.driver_deleted), Snackbar.LENGTH_SHORT).show();
                                         } else {
                                             mDriverFirebaseAdapter.deleteItem(viewHolder.getAdapterPosition());
+                                            Snackbar.make(getView(), getString(R.string.driver_deleted), Snackbar.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
@@ -161,7 +199,7 @@ public class DriverFragment extends Fragment {
                 String id = documentSnapshot.getId();
                 String path = documentSnapshot.getReference().getPath();
                 Intent intent = new Intent(getContext(), UpdateDriverActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra(Constants.DRIVER_ID, id);
                 startActivity(intent);
             }
         });

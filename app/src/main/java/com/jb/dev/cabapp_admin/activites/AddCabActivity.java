@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
     String mCabArea;
     private View parent_view;
     ArrayAdapter<CharSequence> adapter;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
+        progressBar = findViewById(R.id.progress_circular);
         editTextCabName = findViewById(R.id.cab_et_cabname);
         editTextCabNumber = findViewById(R.id.cab_et_cabnumber);
         editTextPerCapacity = findViewById(R.id.cab_et_per_capacity);
@@ -159,6 +162,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
             editTextLaugageCapacity.setError(getString(R.string.enter_valid_details));
             editTextLaugageCapacity.setFocusable(true);
         } else {
+            progressBar.setVisibility(View.VISIBLE);
             Query query = mCabRef.whereEqualTo(Constants.CAB_NUMBER_KEY, mCabNumber).whereEqualTo(Constants.CAB_DRIVER_KEY, mAssignDriver);
             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -176,6 +180,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        progressBar.setVisibility(View.GONE);
                                         Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
                                         setResult(Constants.CAB_REFRESH_RESULT_CODE);
                                         finish();

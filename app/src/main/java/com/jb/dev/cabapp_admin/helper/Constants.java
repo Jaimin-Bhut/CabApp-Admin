@@ -23,4 +23,30 @@ public interface Constants {
     String CAB_DRIVER_KEY = "CabDriver";
     String CAB_STATUS_KEY = "CabStatus";
     String CAB_AREA_KEY = "CabArea";
+
+    String BOOKED = "Booked";
+    String DRIVER_ID = "driver_id";
+    String DRIVER_DETAILS = "driver_details";
+    String CAB_ID = "cab_id";
+    String CAB_DETAILS = "cab_details";
+    String AVAILABLE = "Available";
+
+    String BOOKING_COLLECTION_REFERENCE_KEY = "Booking_Data";
+    String BOOKING_USER_NAME_KEY = "user_name";
+    String BOOKING_USER_EMAIL_KEY = "user_email";
+    String BOOKING_USER_PHONE_NUMBER_KEY = "user_phone_number";
+    String BOOKING_START_LATITUDE_KEY = "start_lat";
+    String BOOKING_START_LONGITUDE_KEY = "start_long";
+    String BOOKING_END_LATITUDE_KEY = "end_lat";
+    String BOOKING_END_LONGITUDE_KEY = "end_long";
+    String BOOKING_DATE_KEY = "date";
+    String BOOKING_TIME_KEY = "time";
+    String BOOKING_PRICE_KEY = "price";
+    String BOOKING_DISTANCE_KEY = "distance";
+    String BOOKING_CAB_NAME_KEY = "cab_name";
+    String BOOKING_CAB_NUMBER_KEY = "cab_number";
+    String BOOKING_CAB_DRIVER_KEY = "cab_driver";
+    String BOOKING_CURRENT_LOCATION = "current_location";
+    String BOOKING_DESTINATION_LOCATION = "destination_location";
+    String BOOKING_OTP_KEY = "otp";
 }

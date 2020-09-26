@@ -10,12 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jb.dev.cabapp_admin.R;
-import com.jb.dev.cabapp_admin.helper.Constants;
-import com.jb.dev.cabapp_admin.model.CabModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.jb.dev.cabapp_admin.R;
+import com.jb.dev.cabapp_admin.helper.Constants;
+import com.jb.dev.cabapp_admin.model.CabModel;
 
 public class CabFirebaseAdapter extends FirestoreRecyclerAdapter<CabModel, CabFirebaseAdapter.CabHolder> {
     private onItemClickListener listener;
@@ -93,15 +93,15 @@ public class CabFirebaseAdapter extends FirestoreRecyclerAdapter<CabModel, CabFi
                     cabStatus = textViewCabStatus.getText().toString();
                     cabArea = textViewCabArea.getText().toString();
 
-                    sp = v.getContext().getSharedPreferences("is_set", Context.MODE_PRIVATE);
+                    sp = v.getContext().getSharedPreferences(Constants.CAB_DETAILS, Context.MODE_PRIVATE);
                     SharedPreferences.Editor Ed = sp.edit();
-                    Ed.putString("cabname", cabName);
-                    Ed.putString("cabnumber", cabNumber);
-                    Ed.putString("cabpercapacity", cabPerCapacity);
-                    Ed.putString("cablagcapacity", cabLaugageCapacity);
-                    Ed.putString("cabdriver", cabDriver);
-                    Ed.putString("cabstatus", cabStatus);
-                    Ed.putString("cabarea", cabArea);
+                    Ed.putString(Constants.CAB_NAME_KEY, cabName);
+                    Ed.putString(Constants.CAB_NUMBER_KEY, cabNumber);
+                    Ed.putString(Constants.CAB_PERSON_CAPACITY_KEY, cabPerCapacity);
+                    Ed.putString(Constants.CAB_LAUGAGE_CAPACITY_KEY, cabLaugageCapacity);
+                    Ed.putString(Constants.CAB_DRIVER_KEY, cabDriver);
+                    Ed.putString(Constants.CAB_STATUS_KEY, cabStatus);
+                    Ed.putString(Constants.CAB_AREA_KEY, cabArea);
                     Ed.apply();
                 }
             });
