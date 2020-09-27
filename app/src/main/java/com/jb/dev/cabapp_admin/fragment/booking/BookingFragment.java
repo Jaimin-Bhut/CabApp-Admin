@@ -124,9 +124,9 @@ public class BookingFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.getResult().isEmpty()) {
-                            textViewNoData.setVisibility(View.VISIBLE);
+                            textViewNoBooking.setVisibility(View.VISIBLE);
                         } else {
-                            textViewNoData.setVisibility(View.INVISIBLE);
+                            textViewNoBooking.setVisibility(View.INVISIBLE);
                         }
                         progressBarBooking.setVisibility(View.GONE);
                     }
