@@ -16,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.jb.dev.cabapp_admin.R;
 import com.jb.dev.cabapp_admin.helper.Constants;
 import com.jb.dev.cabapp_admin.helper.Helper;
@@ -33,6 +37,7 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DriverModel driverModel;
     String mid, mPath;
+    CollectionReference mDriverRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
+        mDriverRef = db.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY);
         editTextDriverFirstName = findViewById(R.id.update_driver_et_Firstname);
         editTextDriverAddress = findViewById(R.id.update_driver_et_Address);
         editTextDriverPhoneNumber = findViewById(R.id.update_driver_et_Phone_Number);
@@ -102,9 +108,9 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
 
     //for update driver data to database
     private void updateDriverDataToDatabase() {
-        String mFirstName = editTextDriverFirstName.getText().toString();
-        String mAddress = editTextDriverAddress.getText().toString();
-        String mPhoneNumber = editTextDriverPhoneNumber.getText().toString();
+        final String mFirstName = editTextDriverFirstName.getText().toString();
+        final String mAddress = editTextDriverAddress.getText().toString();
+        final String mPhoneNumber = editTextDriverPhoneNumber.getText().toString();
         String mEmail = editTextDriverEmail.getText().toString();
         try {
             if (!Helper.isValidText(mFirstName)) {
@@ -120,28 +126,42 @@ public class UpdateDriverActivity extends AppCompatActivity implements View.OnCl
                 editTextDriverEmail.setError(getString(R.string.enter_valid_details));
                 editTextDriverEmail.setFocusable(true);
             } else {
-                DocumentReference documentReference = db.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY).document(mid);
-                documentReference.update(Constants.DRIVER_NAME_KEY, mFirstName);
-                documentReference.update(Constants.DRIVER_ADDRESS_KEY, mAddress);
-                documentReference.update(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateDriverActivity.this, "Document Updated", Toast.LENGTH_LONG).show();
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.clear();
-                                editor.apply();
-                                setResult(Constants.DRIVER_REFRESH_RESULT_CODE);
-                                UpdateDriverActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                                finish();
+                Query query = mDriverRef.whereEqualTo(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber);
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                                if (queryDocumentSnapshots.getDocuments().get(i).get(Constants.DRIVER_EMAIL_KEY).equals(editTextDriverEmail.getText().toString())) {
+                                    DocumentReference documentReference = db.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY).document(mid);
+                                    documentReference.update(Constants.DRIVER_NAME_KEY, mFirstName);
+                                    documentReference.update(Constants.DRIVER_ADDRESS_KEY, mAddress);
+                                    documentReference.update(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(UpdateDriverActivity.this, "Document Updated", Toast.LENGTH_LONG).show();
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.clear();
+                                                    editor.apply();
+                                                    setResult(Constants.DRIVER_REFRESH_RESULT_CODE);
+                                                    UpdateDriverActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                                    finish();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(UpdateDriverActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                } else {
+                                    Snackbar.make(getCurrentFocus(), getString(R.string.txt_phone_already_exist), Snackbar.LENGTH_SHORT).show();
+                                }
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UpdateDriverActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        }
+                    }
+                });
             }
         } catch (
                 Exception e) {

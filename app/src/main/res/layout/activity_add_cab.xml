@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -18,18 +17,19 @@
             tools:context="com.example.cabbookingapplication.activites.UserRegistrationActivity">
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.Grey">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
 
                 <EditText
                     android:id="@+id/cab_et_cabname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:hint="@string/hint_cab_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
@@ -40,18 +40,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.Grey">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
 
                 <EditText
                     android:id="@+id/cab_et_cabnumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:hint="@string/hint_cab_number"
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters"
@@ -63,18 +63,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.Grey">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
 
                 <EditText
                     android:id="@+id/cab_et_per_capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:hint="@string/hint_cab_per_capacity"
                     android:imeOptions="actionNext"
                     android:inputType="text"
@@ -86,18 +86,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditText.Grey">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
 
                 <EditText
                     android:id="@+id/cab_et_laugage_capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:hint="@string/hint_cab_laugage_capacity"
                     android:imeOptions="actionNext"
                     android:inputType="text"
@@ -111,66 +111,47 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="10dp">
 
-                <TextView
-                    android:id="@+id/cab_txt_cab_driver"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/hint_cab_driver"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:hint="@string/hint_cab_driver">
 
-                <Spinner
-                    android:id="@+id/cab_spinner_driver"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:spinnerMode="dropdown"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/cab_spinner_driver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="10dp">
 
-                <TextView
-                    android:id="@+id/cab_txt_cab_area"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/fragment_outline_text_fields_dropdown_text_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/cab_area"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:hint="@string/cab_area">
 
-                <Spinner
-                    android:id="@+id/cab_spinner_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:spinnerMode="dropdown"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/cab_spinner_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

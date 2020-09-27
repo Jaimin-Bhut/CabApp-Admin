@@ -11,7 +11,12 @@
         android:title="@string/cab" />
 
     <item
+        android:id="@+id/navigation_area"
+        android:icon="@drawable/ic_area"
+        android:title="Area" />
+
+    <item
         android:id="@+id/navigation_booking"
         android:icon="@drawable/twotone_history_24"
-        android:title="Booking"/>
+        android:title="Booking" />
 </menu>

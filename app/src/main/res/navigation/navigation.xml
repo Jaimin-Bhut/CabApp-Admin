@@ -23,4 +23,10 @@
         android:label="@string/booking"
         tools:layout="@layout/fragment_booking" />
 
+    <fragment
+        android:id="@+id/navigation_area"
+        android:name="com.jb.dev.cabapp_admin.fragment.Area.AreaFragment"
+        android:label="@string/area"
+        tools:layout="@layout/fragment_area" />
+
 </navigation>

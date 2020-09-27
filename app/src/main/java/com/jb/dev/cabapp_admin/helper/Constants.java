@@ -49,4 +49,7 @@ public interface Constants {
     String BOOKING_CURRENT_LOCATION = "current_location";
     String BOOKING_DESTINATION_LOCATION = "destination_location";
     String BOOKING_OTP_KEY = "otp";
+
+    String AREA_COLLECTION_REFERENCE_KEY = "Area_Data";
+    String AREA_NAME = "AreaName";
 }

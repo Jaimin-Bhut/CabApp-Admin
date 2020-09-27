@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_driver, R.id.navigation_cab, R.id.navigation_booking)
+                R.id.navigation_driver, R.id.navigation_cab, R.id.navigation_booking, R.id.navigation_area)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

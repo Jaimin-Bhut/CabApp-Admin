@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,8 +38,8 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "Add Cab Activity";
     private EditText editTextCabName, editTextCabNumber, editTextPerCapacity, editTextLaugageCapacity;
     private Button buttonOk, buttonCancel;
-    private Spinner spinnerDriver;
-    private Spinner spinnerCabArea;
+    private AutoCompleteTextView spinnerDriver;
+    private AutoCompleteTextView spinnerCabArea;
     FirebaseFirestore mFirebaseFirestore;
     CollectionReference mDriverRef;
     CollectionReference mCabRef;
@@ -115,7 +115,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
 
     private void loadSpinnerData() {
         final List<String> list_driver = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list_driver);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_driver);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDriver.setAdapter(adapter);
         mDriverRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -147,8 +147,8 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
         mCabNumber = editTextCabNumber.getText().toString().toUpperCase();
         mPerCapacity = editTextPerCapacity.getText().toString();
         mLauageCapacity = editTextLaugageCapacity.getText().toString();
-        mAssignDriver = spinnerDriver.getSelectedItem().toString();
-        mCabArea = spinnerCabArea.getSelectedItem().toString();
+        mAssignDriver = spinnerDriver.getText().toString();
+        mCabArea = spinnerCabArea.getText().toString();
         if (!Helper.isValidTextDigit(mCabName)) {
             editTextCabName.setError(getString(R.string.txt_enter_cab_name));
             editTextCabName.setFocusable(true);
@@ -161,40 +161,56 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
         } else if (!Helper.isValidLaugage(mLauageCapacity)) {
             editTextLaugageCapacity.setError(getString(R.string.enter_valid_details));
             editTextLaugageCapacity.setFocusable(true);
+        } else if (mAssignDriver.equals("")) {
+            spinnerDriver.setError(getString(R.string.enter_valid_details));
+        } else if (mCabArea.equals("")) {
+            spinnerCabArea.setError(getString(R.string.enter_valid_details));
         } else {
             progressBar.setVisibility(View.VISIBLE);
-            Query query = mCabRef.whereEqualTo(Constants.CAB_NUMBER_KEY, mCabNumber).whereEqualTo(Constants.CAB_DRIVER_KEY, mAssignDriver);
+            Query query = mCabRef.whereEqualTo(Constants.CAB_NUMBER_KEY, mCabNumber);
+            final Query queryDriver = mCabRef.whereEqualTo(Constants.CAB_DRIVER_KEY, mAssignDriver);
             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    if (queryDocumentSnapshots.isEmpty()) {
-                        Map<String, Object> NewCab = new HashMap<>();
-                        NewCab.put(Constants.CAB_NAME_KEY, mCabName);
-                        NewCab.put(Constants.CAB_NUMBER_KEY, mCabNumber);
-                        NewCab.put(Constants.CAB_PERSON_CAPACITY_KEY, mPerCapacity);
-                        NewCab.put(Constants.CAB_LAUGAGE_CAPACITY_KEY, mLauageCapacity);
-                        NewCab.put(Constants.CAB_DRIVER_KEY, mAssignDriver);
-                        NewCab.put(Constants.CAB_AREA_KEY, mCabArea);
-                        NewCab.put(Constants.CAB_STATUS_KEY, getString(R.string.available));
-                        mFirebaseFirestore.collection(Constants.CAB_COLLECTION_REFERENCE_KEY).document().set(NewCab)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        progressBar.setVisibility(View.GONE);
-                                        Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
-                                        setResult(Constants.CAB_REFRESH_RESULT_CODE);
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Snackbar.make(parent_view, getString(R.string.something_want_wrong), Snackbar.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                    } else {
+                    if (!queryDocumentSnapshots.isEmpty()) {
                         Snackbar.make(parent_view, mCabNumber + " " + getString(R.string.txt_cab_already_exist), Snackbar.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        queryDriver.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Snackbar.make(parent_view, mCabNumber + " " + getString(R.string.txt_driver_already_exist), Snackbar.LENGTH_SHORT).show();
+                                } else {
+                                    Map<String, Object> NewCab = new HashMap<>();
+                                    NewCab.put(Constants.CAB_NAME_KEY, mCabName);
+                                    NewCab.put(Constants.CAB_NUMBER_KEY, mCabNumber);
+                                    NewCab.put(Constants.CAB_PERSON_CAPACITY_KEY, mPerCapacity);
+                                    NewCab.put(Constants.CAB_LAUGAGE_CAPACITY_KEY, mLauageCapacity);
+                                    NewCab.put(Constants.CAB_DRIVER_KEY, mAssignDriver);
+                                    NewCab.put(Constants.CAB_AREA_KEY, mCabArea);
+                                    NewCab.put(Constants.CAB_STATUS_KEY, getString(R.string.available));
+                                    mFirebaseFirestore.collection(Constants.CAB_COLLECTION_REFERENCE_KEY).document().set(NewCab)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
+                                                    setResult(Constants.CAB_REFRESH_RESULT_CODE);
+                                                    finish();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Snackbar.make(parent_view, getString(R.string.something_want_wrong), Snackbar.LENGTH_SHORT).show();
+                                                    progressBar.setVisibility(View.GONE);
+                                                }
+                                            });
+                                }
+                            }
+                        });
                     }
                 }
             });

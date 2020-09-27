@@ -143,36 +143,49 @@ public class AddDriverActivity extends AppCompatActivity implements View.OnClick
         } else {
             progressBar.setVisibility(View.VISIBLE);
             Query query = mDriverRef.whereEqualTo(Constants.DRIVER_EMAIL_KEY, mEmail);
+            final Query queryPhoneNumber = mDriverRef.whereEqualTo(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber);
             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         Snackbar.make(parent_view, getString(R.string.txt_driver_already_exist), Snackbar.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                     } else {
-                        Map<String, Object> NewDriver = new HashMap<>();
-                        NewDriver.put(Constants.DRIVER_NAME_KEY, mFirstName);
-                        NewDriver.put(Constants.DRIVER_ADDRESS_KEY, mAddress);
-                        NewDriver.put(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber);
-                        NewDriver.put(Constants.DRIVER_EMAIL_KEY, mEmail);
-                        NewDriver.put(Constants.DRIVER_PASSWORD_KEY, mPassword);
-                        mFirebaseFirestore.collection("Driver_Data").document().set(NewDriver)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        progressBar.setVisibility(View.GONE);
-                                        Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
-                                        Intent intent = getIntent();
-                                        setResult(Constants.DRIVER_REFRESH_RESULT_CODE);
-                                        finish();
+                        queryPhoneNumber.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    Snackbar.make(parent_view, getString(R.string.txt_phone_already_exist), Snackbar.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                } else {
+                                    Map<String, Object> NewDriver = new HashMap<>();
+                                    NewDriver.put(Constants.DRIVER_NAME_KEY, mFirstName);
+                                    NewDriver.put(Constants.DRIVER_ADDRESS_KEY, mAddress);
+                                    NewDriver.put(Constants.DRIVER_PHONE_NUMBER_KEY, mPhoneNumber);
+                                    NewDriver.put(Constants.DRIVER_EMAIL_KEY, mEmail);
+                                    NewDriver.put(Constants.DRIVER_PASSWORD_KEY, mPassword);
+                                    mFirebaseFirestore.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY).document().set(NewDriver)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    Snackbar.make(parent_view, getString(R.string.txt_success_register), Snackbar.LENGTH_SHORT).show();
+                                                    Intent intent = getIntent();
+                                                    setResult(Constants.DRIVER_REFRESH_RESULT_CODE);
+                                                    finish();
 //                                        navigateUpTo(new Intent(AddDriverActivity.this, CabFragment.class));
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Snackbar.make(parent_view, getString(R.string.something_want_wrong), Snackbar.LENGTH_SHORT).show();
-                                    }
-                                });
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Snackbar.make(parent_view, getString(R.string.something_want_wrong), Snackbar.LENGTH_SHORT).show();
+                                                    progressBar.setVisibility(View.GONE);
+                                                }
+                                            });
+                                }
+                            }
+                        });
                     }
                 }
             });
