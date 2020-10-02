@@ -45,6 +45,7 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
     CollectionReference mDriverRef;
     FirebaseFirestore mFirebaseFirestore;
     AutoCompleteTextView completeTextViewCab, completeTextViewDriver;
+    private CollectionReference mCabAreaRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,8 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
         initListener();
         initObject();
         loadSpinnerData();
+        loadAreaSpinnerData();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -79,6 +80,7 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
         completeTextViewCab = findViewById(R.id.update_cab_spinner_area);
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mDriverRef = mFirebaseFirestore.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY);
+        mCabAreaRef = mFirebaseFirestore.collection(Constants.AREA_COLLECTION_REFERENCE_KEY);
         adapter = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         completeTextViewCab.setAdapter(adapter);
@@ -177,6 +179,25 @@ public class UpdateCabActivity extends AppCompatActivity implements View.OnClick
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         String driver = documentSnapshot.getString(Constants.DRIVER_EMAIL_KEY);
                         list_driver.add(driver);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void loadAreaSpinnerData() {
+        final List<String> list_cab_area = new ArrayList<>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_cab_area);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        completeTextViewCab.setAdapter(adapter);
+        mCabAreaRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        String area = documentSnapshot.getString(Constants.AREA_NAME);
+                        list_cab_area.add(area);
                     }
                     adapter.notifyDataSetChanged();
                 }

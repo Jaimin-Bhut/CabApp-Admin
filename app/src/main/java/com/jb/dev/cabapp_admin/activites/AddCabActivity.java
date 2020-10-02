@@ -43,6 +43,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseFirestore mFirebaseFirestore;
     CollectionReference mDriverRef;
     CollectionReference mCabRef;
+    CollectionReference mCabAreaRef;
     String mCabName;
     String mCabNumber;
     String mPerCapacity;
@@ -61,6 +62,7 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
         init();
         initListener();
         loadSpinnerData();
+        loadAreaSpinnerData();
     }
 
     private void init() {
@@ -74,11 +76,12 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
         spinnerDriver = findViewById(R.id.cab_spinner_driver);
         spinnerCabArea = findViewById(R.id.cab_spinner_area);
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        adapter = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCabArea.setAdapter(adapter);
+//        adapter = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_dropdown_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerCabArea.setAdapter(adapter);
         mDriverRef = mFirebaseFirestore.collection(Constants.DRIVER_COLLECTION_REFERENCE_KEY);
         mCabRef = mFirebaseFirestore.collection(Constants.CAB_COLLECTION_REFERENCE_KEY);
+        mCabAreaRef = mFirebaseFirestore.collection(Constants.AREA_COLLECTION_REFERENCE_KEY);
         parent_view = findViewById(android.R.id.content);
         editTextCabName.setText("Jaimin");
         editTextCabNumber.setText("GJ09PG9090");
@@ -125,6 +128,25 @@ public class AddCabActivity extends AppCompatActivity implements View.OnClickLis
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         String driver = documentSnapshot.getString(Constants.DRIVER_EMAIL_KEY);
                         list_driver.add(driver);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void loadAreaSpinnerData() {
+        final List<String> list_cab_area = new ArrayList<>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list_cab_area);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCabArea.setAdapter(adapter);
+        mCabAreaRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        String area = documentSnapshot.getString(Constants.AREA_NAME);
+                        list_cab_area.add(area);
                     }
                     adapter.notifyDataSetChanged();
                 }
