@@ -194,4 +194,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="area">Area</string>
     <string name="area_deleted_successfully">Area deleted successfully</string>
+    <string name="please_turn_on_internet">Please turn on internet</string>
 </resources>

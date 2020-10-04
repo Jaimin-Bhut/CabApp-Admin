@@ -3,11 +3,14 @@ package com.jb.dev.cabapp_admin.activites;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,13 +22,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.jb.dev.cabapp_admin.R;
+import com.jb.dev.cabapp_admin.helper.Helper;
 
 public class MainActivity extends AppCompatActivity {
 
     private long backPressTime;
     Toast backToast;
     BottomNavigationView bottomNavigationView;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        view = findViewById(android.R.id.content);
+        if (!Helper.isNetworkConnected(this)) {
+            Snackbar snackbar = Snackbar.make(view, getString(R.string.please_turn_on_internet), Snackbar.LENGTH_INDEFINITE)
+                    .setAction("TURN ON", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
+                            startActivity(intent);
+                        }
+                    });
+            snackbar.setActionTextColor(Color.WHITE);
+            snackbar.show();
+        }
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_driver, R.id.navigation_cab, R.id.navigation_booking, R.id.navigation_area)
                 .build();

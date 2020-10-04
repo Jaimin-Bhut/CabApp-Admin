@@ -3,6 +3,7 @@ package com.jb.dev.cabapp_admin.helper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -18,7 +19,7 @@ public class Helper {
     private static ProgressDialog progressDialog;
 
     public Helper(Context context) {
-        this.context = context;
+        Helper.context = context;
     }
 
     public static void toast(Context context, String msg) {
@@ -146,11 +147,7 @@ public class Helper {
     }
 
     public static boolean isValidAddress(String str) {
-        if (str.length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return str.length() != 0;
     }
 
     public static void showProgressDialog(Context context) {
@@ -166,11 +163,7 @@ public class Helper {
     //-----------------password validation
     public static boolean validPassword(String editText)
             throws NumberFormatException {
-        if (editText.length() < 8 || editText.trim().equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+        return editText.length() >= 8 && !editText.trim().equals("");
     }
 
     public static boolean validNumberPlate(String text) {
@@ -190,4 +183,8 @@ public class Helper {
         imm.hideSoftInputFromWindow(view.getWindowToken(), WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
 }
