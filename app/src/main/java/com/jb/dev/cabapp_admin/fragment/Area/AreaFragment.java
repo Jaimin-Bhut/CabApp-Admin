@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -197,14 +198,17 @@ public class AreaFragment extends Fragment {
 
     void isShowBottomSheet() {
         View view = getLayoutInflater().inflate(R.layout.add_area_bottom_sheet, null);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         final TextInputEditText siteName, siteContactNumber;
         siteName = view.findViewById(R.id.add_site_name);
         Button btnAdd = view.findViewById(R.id.btn_add_site);
         if (isUpdate) {
             siteName.setText(name);
             btnAdd.setText("Update");
+            toolbar.setTitle("Update Area");
         } else {
             btnAdd.setText("Add");
+            toolbar.setTitle("Add Area");
         }
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         view.findViewById(R.id.action_close).setOnClickListener(new View.OnClickListener() {
